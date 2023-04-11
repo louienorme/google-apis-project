@@ -1,5 +1,3 @@
-const sampleFormat = "./formats/sampleFormat";
-
 const fs = require('fs').promises;
 const path = require('path');
 const {authenticate} = require('@google-cloud/local-auth');
@@ -84,7 +82,7 @@ async function printDocTitle(auth) {
 }
 
 // Run only when token.json does not exist
-// authorize().then(client => saveCredentials(client)).catch(console.error);
+authorize().then(client => saveCredentials(client)).catch(console.error);
 
 async function createDocs() {
   const auth = await authorize();
@@ -98,71 +96,28 @@ async function createDocs() {
   }).documents;
 
 
-  const requestBody = {
-    "title": "My New Document",
-    "body":  {
-      "content": [
-      {
-        "endIndex": 1,
-        "sectionBreak": {
-          "sectionStyle": {
-            "columnSeparatorStyle": "NONE",
-            "contentDirection": "LEFT_TO_RIGHT",
-            "sectionType": "CONTINUOUS"
-          }
-        }
-      },
-      {
-        "startIndex": 1,
-        "endIndex": 2,
-        "paragraph": {
-          "elements": [
-            {
-              "startIndex": 1,
-              "endIndex": 2,
-              "textRun": {
-                "content": "testicle\n",
-                "textStyle": {}
-              }
-            }
-          ],
-          "paragraphStyle": {
-            "namedStyleType": "NORMAL_TEXT",
-            "direction": "LEFT_TO_RIGHT"
-          }
-        }
-      }
-    ]
-    }
-  }
-  
-
-  
-
-  console.log(requestBody)
-
   //create
   try {
      await docs.create({
-      requestBody
+      "title": "My New Document",
     })
 
-    await docs.batchUpdate({
-      auth,
-      documentId: "1YirfIwiDApP-vFV7Du8CEEKV4UfL2-__2DHLRFM2Soc",
-      requestBody: {
-        requests: [
-          {
-            insertText: {
-              location: {
-                index: 1,
-              },
-              text: "hello!\n",
-            },
-          },
-        ],
-      },
-    });
+    // await docs.batchUpdate({
+    //   auth,
+    //   documentId: "1YirfIwiDApP-vFV7Du8CEEKV4UfL2-__2DHLRFM2Soc",
+    //   requestBody: {
+    //     requests: [
+    //       {
+    //         insertText: {
+    //           location: {
+    //             index: 1,
+    //           },
+    //           text: "hello!\n",
+    //         },
+    //       },
+    //     ],
+    //   },
+    // });
     console.log("works!")
   } catch (err) {
     console.error(err)

@@ -1,6 +1,6 @@
 {
   "name": "google-apis-project",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "server.ts",
   "repository": "https://github.com/louienorme/google-apis-project.git",
   "author": "John Loui Enorme <johnlouienorme@yahoo.com>",
